@@ -7,14 +7,20 @@ Illustrator 30.5.1 的原生插件工程，目标是提供：
 
 ## 当前状态
 
-仓库初始化阶段。当前机器未发现 Adobe Illustrator SDK，因此暂不提交声称可编译的 SDK 头文件或伪造 API。插件实现会在 SDK 接入后放入 `src/`，CMake 构建入口已预留。
+已接入本地 Illustrator SDK 30.5.167 的核心操作模块：
+
+- 普通渐变：读取和替换全部 `AIGradientStop`。
+- 渐变网格：通过 `AIMeshSuite::QueryColors` / `MapColors` 读取和替换节点颜色。
+- 自由渐变：SDK 30.5.167 没有公开的自由渐变点／线 suite，暂不宣称支持。
+
+`src/GradientOperations.*` 是可被插件 UI 和命令入口调用的核心层；菜单、色板选择和撤销事务仍待接入原生插件壳。
 
 ## SDK 接入
 
 设置环境变量 `ILLUSTRATOR_SDK_ROOT` 指向 Adobe Illustrator SDK 根目录，然后执行：
 
 ```powershell
-cmake -S . -B build -DILLUSTRATOR_SDK_ROOT=$env:ILLUSTRATOR_SDK_ROOT
+cmake -S . -B build
 cmake --build build --config Release
 ```
 

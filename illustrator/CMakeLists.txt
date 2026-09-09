@@ -2,12 +2,18 @@ cmake_minimum_required(VERSION 3.24)
 project(IllustratorGradientTools LANGUAGES CXX)
 
 if(NOT ILLUSTRATOR_SDK_ROOT)
-  message(FATAL_ERROR "请设置 ILLUSTRATOR_SDK_ROOT 指向 Adobe Illustrator SDK 根目录")
+  set(ILLUSTRATOR_SDK_ROOT "${CMAKE_CURRENT_LIST_DIR}/../vendor/adobe-illustrator-sdk-30.5.167/Adobe Illustrator 2026 SDK")
 endif()
 
-add_library(IllustratorGradientTools MODULE src/plugin_placeholder.cpp)
-target_compile_features(IllustratorGradientTools PRIVATE cxx_std_17)
-target_include_directories(IllustratorGradientTools PRIVATE "${ILLUSTRATOR_SDK_ROOT}/samplecode/common/includes")
+add_library(IllustratorGradientToolsCore STATIC src/GradientOperations.cpp)
+target_compile_features(IllustratorGradientToolsCore PRIVATE cxx_std_17)
+target_include_directories(IllustratorGradientToolsCore PRIVATE
+  "${ILLUSTRATOR_SDK_ROOT}/illustratorapi/illustrator"
+  "${ILLUSTRATOR_SDK_ROOT}/illustratorapi/illustrator/legacy"
+  "${ILLUSTRATOR_SDK_ROOT}/illustratorapi/ate"
+  "${ILLUSTRATOR_SDK_ROOT}/illustratorapi/adm"
+  "${ILLUSTRATOR_SDK_ROOT}/illustratorapi/pica_sp"
+)
 if(WIN32)
-  target_compile_definitions(IllustratorGradientTools PRIVATE WIN32 _WINDOWS)
+  target_compile_definitions(IllustratorGradientToolsCore PRIVATE WIN32 _WINDOWS WIN_ENV)
 endif()
