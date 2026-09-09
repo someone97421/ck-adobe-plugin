@@ -1,0 +1,15 @@
+ck Adobe Illustrator 工具箱 0.1.0
+
+手动安装：
+1. 打开 Adobe Illustrator 2026 安装目录。
+2. 打开 Presets\<语言>\Scripts 目录。
+3. 将本包 Scripts 文件夹里的 ck-adobe-toolbox 文件夹整体复制进去。
+4. 重启 Illustrator。
+5. 从 文件 → 脚本 → ck-adobe-toolbox 运行工具。
+
+当前包含：
+- 00_工具箱清单.jsx
+- 01_渐变色标提取色板.jsx
+- 02_所选色板替换渐变色标.jsx
+
+注意：这是 ExtendScript 工具包，不能复制到 Illustrator 的 Plug-ins 目录。原生 .aip 插件包会在 SDK 菜单壳完成后单独发布。
